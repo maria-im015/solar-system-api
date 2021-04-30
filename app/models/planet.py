@@ -4,7 +4,7 @@ from app import db
 class Planet(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String)
-    description = db.Column(db.String) #why dont we specify the type here?
+    description = db.Column(db.String) 
     order = db.Column(db.Integer)
     
     def to_json(self):

@@ -3,6 +3,11 @@ from app.models.planet import Planet
 from flask import request, Blueprint, make_response, jsonify
 
 planets_bp = Blueprint("planets", __name__, url_prefix="/planets")
+def is_int(value):
+    try:
+        return int(value)
+    except ValueError:
+        return False
 
 @planets_bp.route("/<planets_order>", methods=["GET"], strict_slashes=False)
 def get_single_planet(planets_order):
