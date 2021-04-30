@@ -1,5 +1,5 @@
 from app import db
-from app.models.planet import Planet
+from .models.planet import Planet
 from flask import request, Blueprint, make_response, jsonify
 
 planets_bp = Blueprint("planets", __name__, url_prefix="/planets")
@@ -9,22 +9,22 @@ def is_int(value):
     except ValueError:
         return False
 
-@planets_bp.route("/<planets_order>", methods=["GET"], strict_slashes=False)
-def get_single_planet(planets_order):
-    planet = planet
-    if not is_int(planets_order):
+@planets_bp.route("/<planets_id>", methods=["GET"], strict_slashes=False)
+def get_single_planet(planets_id):
+    
+    if not is_int(planets_id):
         return {
             "message": "id must be an integer",
             "success": False
         },400
         
-    planet = Planet.query.get(planets_order)
+    planet = Planet.query.get(planets_id)
     
     if planet:
         return planet.to_json(), 200
     
     return {
-        "message": f"Planet with id {planets_order} was not found",
+        "message": f"Planet with id {planets_id} was not found",
         "success": False
     }, 404
 
@@ -34,7 +34,7 @@ def planets_index():
     planets_response = [] 
     for planet in planets:
         planets_response.append(planet.to_json())
-    return jsonify(planet_response), 200
+    return jsonify(planets_response), 200
 
 @planets_bp.route("", methods=["POST"], strict_slashes=False)
 def planets():
