@@ -21,7 +21,7 @@ def get_single_planet(planets_id):
     planet = Planet.query.get(planets_id)
     
     if planet == None:
-        return Response("", 404)
+        return Response("",status=404)
     
     if planet:
         return planet.to_json(), 200
@@ -60,7 +60,7 @@ def update_planet(planet_id):
     planet = Planet.query.get(planet_id)
     
     if planet == None:
-        return Response("", 404)
+        return Response("", status=404)
     
     if planet: 
         form_data = request.get_json()
@@ -77,7 +77,7 @@ def delete_single_planet(planet_id):
     planet = Planet.query.get(planet_id)
 
     if planet == None:
-        return Response("", 404)
+        return Response("", status=404)
 
     if planet:
         db.session.delete(planet)
