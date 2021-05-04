@@ -9,6 +9,12 @@ def is_int(value):
     except ValueError:
         return False
 
+''' @planets_bp.route("/<planet_id>", methods=["GET", "PUT", "DELETE"])
+def handle_planet(planet_id):
+    planet = Planet.query.get(planet_id)
+    if planet == None:
+        return Response("", status=404) '''
+
 @planets_bp.route("/<planets_id>", methods=["GET"], strict_slashes=False)
 def get_single_planet(planets_id):
     
@@ -17,7 +23,8 @@ def get_single_planet(planets_id):
             "message": "id must be an integer",
             "success": False
         },400
-        
+    
+    #handle_planet(planet_id, method=["GET"])
     planet = Planet.query.get(planets_id)
     
     if planet == None:
@@ -57,6 +64,7 @@ def planets():
 
 @planets_bp.route("/<planet_id>", methods=["PUT"], strict_slashes=False)
 def update_planet(planet_id):
+    #handle_planet(planet_id, method=["PUT"])
     planet = Planet.query.get(planet_id)
     
     if planet == None:
@@ -74,6 +82,7 @@ def update_planet(planet_id):
 
 @planets_bp.route("/<planet_id>", methods=["DELETE"], strict_slashes=False)    
 def delete_single_planet(planet_id):
+    #handle_planet(planet_id, method=["DELETE"])
     planet = Planet.query.get(planet_id)
 
     if planet == None:
