@@ -39,11 +39,11 @@ def two_saved_planets(app):
     # db.session.add(mountain_book)
     db.session.commit()
     
-@pytest.fixture
+''' @pytest.fixture
 def planet_data(app):
     new_planet_instance = Planet(name="venus", description="hot hot hot", order=2)
     db.session.add(new_planet_instance)
-    db.session.commit()
+    db.session.commit() '''
     
     
     

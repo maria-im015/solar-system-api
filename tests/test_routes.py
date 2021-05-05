@@ -1,3 +1,5 @@
+from app.models.planet import Planet
+
 def test_get_all_planets_with_no_records(client):
     # Act
     response = client.get("/planets")
@@ -34,12 +36,12 @@ def test_get_one_planet_by_name(client, two_saved_planets):
         "description" : "the red planet",
         "order": 4}]
     
-''' def test_create_one_planet(client, planet_data):
-    response = client.post("/planets", json=planet_data)
+    
+def test_create_one_planet(client):
+    
+    new_planet_instance = Planet(name="venus", description="hot hot hot", order=2)
+    response = client.post("/planets", json=new_planet_instance.to_json())
     response_body = response.get_data(as_text=True)
 
     assert response.status_code == 201
-    #assert response_body == f"Planet venus successfully created"
-    assert response_body == [{"name" : "venus",
-                             "description": "hot hot hot",
-                             "order": 2}] '''
+    assert response_body == '"Planet venus successfully created"\n' 
