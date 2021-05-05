@@ -16,7 +16,30 @@ def test_get_one_planet(client, two_saved_planets):
     assert response.status_code == 200
     assert response_body == {
         "id": 1,
-        "name": "EARTH",
+        "name": "earth",
         "description":"only planet with life",
         "order": 3}
 
+def test_get_one_planet_by_name(client, two_saved_planets):
+    # Act
+    response = client.get("/planets", query_string={"name": "mars"})
+    response_body = response.get_json()
+
+
+    # Assert
+    assert response.status_code == 200
+    assert response_body == [
+        {"id" : 2,
+        "name": "mars",
+        "description" : "the red planet",
+        "order": 4}]
+    
+''' def test_create_one_planet(client, planet_data):
+    response = client.post("/planets", json=planet_data)
+    response_body = response.get_data(as_text=True)
+
+    assert response.status_code == 201
+    #assert response_body == f"Planet venus successfully created"
+    assert response_body == [{"name" : "venus",
+                             "description": "hot hot hot",
+                             "order": 2}] '''

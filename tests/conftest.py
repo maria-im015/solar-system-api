@@ -23,21 +23,35 @@ def client(app):
 @pytest.fixture
 def two_saved_planets(app):
     # Arrange
-    earth = Planet(name="EARTH",
+    earth = Planet(id = 1,
+                   name="earth",
                    description="only planet with life",
                    order=3)
     
-    mars = Planet(name="MARS",
+    mars = Planet(id =2,
+                 name="mars",
                  description="the red planet",
                  order=4)
     
-    ''' ocean_book = Book(title="Ocean Book",
-                      description="watr 4evr")
-    mountain_book = Book(title="Mountain Book",
-                         description="i luv 2 climb rocks")
- '''
     db.session.add_all([earth, mars])
     # Alternatively, we could do
     # db.session.add(ocean_book)
     # db.session.add(mountain_book)
     db.session.commit()
+    
+@pytest.fixture
+def planet_data(app):
+    new_planet_instance = Planet(name="venus", description="hot hot hot", order=2)
+    db.session.add(new_planet_instance)
+    db.session.commit()
+    
+    
+    
+    
+    
+    
+    ''' return {
+    "name": "venus",
+    "description": "hot hot hot",
+    "order" : 2
+    } '''

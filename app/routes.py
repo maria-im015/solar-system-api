@@ -37,11 +37,21 @@ def get_single_planet(planets_id):
         "message": f"Planet with id {planets_id} was not found",
         "success": False
     }, 404
+    
 
 @planets_bp.route("", methods=["GET"], strict_slashes=False)
 def planets_index():
-    planets = Planet.query.all()
-
+    
+    planets = []
+    
+    name_filter = request.args.get("name")
+    
+    if name_filter is not None:
+        planet_name = name_filter
+        planets = Planet.query.filter_by(name=planet_name) 
+    else:
+        planets = Planet.query.all()
+    
     planets_response = [] 
     for planet in planets:
         planets_response.append(planet.to_json())
@@ -57,10 +67,8 @@ def planets():
     db.session.add(new_planet)
     db.session.commit()
     
-    return {
-        "success": True,
-        "message": f"Planet {new_planet.name} has been created"
-    }, 201
+    return make_response(jsonify(f"Planet {new_planet.name} successfully created"),201)
+    
 
 @planets_bp.route("/<planet_id>", methods=["PUT"], strict_slashes=False)
 def update_planet(planet_id):
